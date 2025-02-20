@@ -23,19 +23,39 @@ const RightAccordionSection: React.FC<{
   expanded: boolean;
   handleGoTop: any;
   setExpanded: Function;
-}> = ({expanded = false, handleGoTop = () => {}, setExpanded = () => {}}) => {
+  index: number;
+}> = ({
+  expanded = false,
+  handleGoTop = () => {},
+  setExpanded = () => {},
+  index = 0,
+}) => {
   return (
     <View style={styles.flexRow}>
-      <Button
-        buttonColor="green"
-        textColor="white"
-        style={{marginRight: 5}}
-        onPress={() => {
-          setExpanded(!expanded);
-          handleGoTop();
-        }}>
-        Go Top
-      </Button>
+      {index !== 0 ? (
+        <Button
+          buttonColor="green"
+          textColor="white"
+          style={{marginRight: 5}}
+          onPress={() => {
+            setExpanded(!expanded);
+            handleGoTop();
+          }}>
+          Go Top
+        </Button>
+      ) : (
+        <Button
+          buttonColor="red"
+          textColor="white"
+          style={{marginRight: 5}}
+          disabled
+          onPress={() => {
+            setExpanded(!expanded);
+            handleGoTop();
+          }}>
+          On Top
+        </Button>
+      )}
       <List.Icon icon={expanded ? 'chevron-up' : 'chevron-down'} />
     </View>
   );
@@ -78,6 +98,7 @@ const Section: React.FC<{
                 expanded={expanded}
                 handleGoTop={handleGoTop}
                 setExpanded={setExpanded}
+                index={index}
               />
             )}
             left={props => (
